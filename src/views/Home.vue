@@ -1,18 +1,60 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="login-card mx-auto">
+      <span class="logo">Google</span>
+      <h1>登入</h1>
+      <p>使用您的 Google 帳戶</p>
+      <div class="login-input" :class="{'focus': isFocus, 'hasData': hasData && !isFocus}">
+        <input
+          ref="login"
+          class="login-input"
+          type="text"
+          v-model="account"
+          placeholder="電子郵件地址或電話號碼"
+          @focus="toggleInput(true)"
+          @blur="toggleInput(false)"
+        >
+        <div
+          class="placeholder"
+          @click="actInputFocus()"
+        >
+          電子郵件地址或電話
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
-
 export default {
   name: 'Home',
-  components: {
-    HelloWorld,
+
+  data() {
+    return {
+      account: '',
+      isFocus: false,
+      hasData: false,
+    };
   },
+
+  watch: {
+    account(value) {
+      if (value) {
+        this.hasData = true;
+      } else {
+        this.hasData = false;
+      }
+    },
+  },
+
+  methods: {
+    toggleInput(boolearn) {
+      this.isFocus = boolearn;
+    },
+    actInputFocus() {
+      this.$refs.login.focus();
+    },
+  },
+
 };
 </script>
