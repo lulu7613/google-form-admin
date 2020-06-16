@@ -4,7 +4,13 @@
       <span class="logo">Google</span>
       <h1>登入</h1>
       <p>使用您的 Google 帳戶</p>
-      <Input v-model="account" type="text" placeholder="電子郵件地址或電話" class="mt-4" />
+      <Input
+        v-model="account"
+        type="text"
+        :auto-focus="true"
+        placeholder="電子郵件地址或電話"
+        class="mt-4"
+      />
       <div class="text-left text-primary cursor-point mt-3">忘記電子郵件地址？</div>
       <div
         class="mt-5 text-left"

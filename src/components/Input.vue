@@ -37,6 +37,10 @@ export default {
       type: String,
       default: '',
     },
+    autoFocus: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   model: {
@@ -49,6 +53,10 @@ export default {
       isFocus: false,
       hasData: false,
     };
+  },
+
+  mounted() {
+    this.actAutoFocus();
   },
 
   watch: {
@@ -67,6 +75,11 @@ export default {
     },
     actInputFocus() {
       this.$refs.input.focus();
+    },
+    actAutoFocus() {
+      if (this.autoFocus) {
+        this.$refs.input.focus();
+      }
     },
   },
 
