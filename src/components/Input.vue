@@ -107,9 +107,10 @@ export default {
         color: #80868b;
         position: absolute;
         bottom: 17px;
-        left: 10px;
+        left: 8px;
         background-color: #fff;
         transition: ease 150ms;
+        padding: 0 5px;
     }
 }
 
