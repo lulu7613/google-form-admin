@@ -1,7 +1,7 @@
 <template>
-  <div class="popover">
+  <div class="popover" v-clickoutside="actCloseAlert">
     <Button type="text" @click="actAlert">{{ title }}</Button>
-    <div v-show="isShow" class="content text-left" v-clickoutside="actCloseAlert">
+    <div v-show="isShow" class="content text-left">
       <slot>123</slot>
     </div>
   </div>
