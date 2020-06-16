@@ -14,7 +14,10 @@
         <span class="text-primary cursor-point">瞭解詳情</span>
       </div>
       <div class="footer mt-5 d-flex justify-content-between">
-        <Button type="text" @click="actClick()">建立帳戶</Button>
+        <Popover title="建立帳戶">
+          <div @click="test">建立個人帳戶</div>
+          <div>建立管理業務帳戶</div>
+        </Popover>
         <Button type="primary">繼續</Button>
       </div>
     </div>
@@ -24,6 +27,7 @@
 <script>
 import Input from '@/components/Input.vue';
 import Button from '@/components/Button.vue';
+import Popover from '@/components/Popover.vue';
 
 export default {
   name: 'Home',
@@ -31,6 +35,7 @@ export default {
   components: {
     Input,
     Button,
+    Popover,
   },
 
   data() {
@@ -53,6 +58,9 @@ export default {
 
   methods: {
     actClick() {
+    },
+    test() {
+      console.log(111111);
     },
   },
 
