@@ -3,29 +3,33 @@
     <div class="mx-auto" style="width: 448px; height: 550px">
       <div class="login-card text-center">
         <span class="logo">Google</span>
-        <h1>登入</h1>
-        <p>使用您的 Google 帳戶</p>
+        <h1>{{ $t('login_sign_in', $store.state.lang) }}</h1>
+        <p>{{ $t('login_title', $store.state.lang) }}</p>
         <Input
           v-model="account"
           type="text"
           :auto-focus="true"
-          placeholder="電子郵件地址或電話"
+          :placeholder="$t('login_account', $store.state.lang)"
           class="mt-4"
         />
-        <div class="text-left text-primary cursor-point mt-3">忘記電子郵件地址？</div>
+        <div class="text-left text-primary cursor-point mt-3">
+          {{ $t('login_forgot', $store.state.lang) }}
+        </div>
         <div
           class="mt-5 text-left"
           style="line-height: 1.7rem;"
         >
-          如果這不是你的電腦，請使用訪客模式以私密方式登入。
-          <span class="text-primary cursor-point">瞭解詳情</span>
+          {{ $t('login_message', $store.state.lang) }}
+          <span class="text-primary cursor-point">
+            {{ $t('login_learn_more', $store.state.lang) }}
+          </span>
         </div>
         <div class="footer mt-5 d-flex justify-content-between">
-          <Popover title="建立帳戶">
-            <div @click="test">建立個人帳戶</div>
-            <div>建立管理業務帳戶</div>
+          <Popover :title="$t('login_create', $store.state.lang)">
+            <div @click="test">{{ $t('login_create', $store.state.lang) }}</div>
+            <div>{{ $t('login_create_manage', $store.state.lang) }}</div>
           </Popover>
-          <Button type="primary">繼續</Button>
+          <Button type="primary">{{ $t('login_next', $store.state.lang) }}</Button>
         </div>
       </div>
       <FooterBar />
