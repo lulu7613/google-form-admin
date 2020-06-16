@@ -1,0 +1,14 @@
+{
+    "login_sign_in": "登入",
+    "login_title" : "使用您的 Google 帳戶",
+    "login_account" : "電子郵件地址或電話",
+    "login_forgot" : "忘記電子郵件地址？",
+    "login_message" : "如果這不是你的電腦，請使用訪客模式以私密方式登入。",
+    "login_learn_more" : "瞭解詳情",
+    "login_create" : "建立個人帳戶",
+    "login_create_manage" : "建立管理業務帳戶",
+    "login_next" : "繼續",
+    "footerBar_help" : "說明",
+    "footerBar_privacy" : "隱私權",
+    "footerBar_terms" : "條款"
+}

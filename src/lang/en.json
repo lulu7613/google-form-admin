@@ -1,0 +1,14 @@
+{
+    "login_sign_in": "Sign in",
+    "login_title" : "Use your Google Account",
+    "login_account" : " Email or phone ",
+    "login_forgot" : "Forgot email?",
+    "login_message" : "Not your computer? Use Guest mode to sign in privately.",
+    "login_learn_more" : "Learn more",
+    "login_create" : "Create account",
+    "login_create_manage" : "To manage my business",
+    "login_next" : "Next",
+    "footerBar_help" : "Help",
+    "footerBar_privacy" : "Privacy",
+    "footerBar_terms" : "Terms"
+}
