@@ -28,6 +28,12 @@ export default {
   methods: {
     getSelect(value) {
       this.lang = value;
+
+      let lang = 'tw';
+      if (value === 'English') {
+        lang = 'en';
+      }
+      this.$store.dispatch('setLang', lang);
     },
   },
 };

@@ -1,4 +1,5 @@
 import clickoutside from '@/assets/js/clickoutside'; // 引入自定義事件設定
+import i18n from '@/lang/lang';
 
 import Vue from 'vue';
 import App from './App.vue';
@@ -17,5 +18,6 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
+  i18n,
   render: (h) => h(App),
 }).$mount('#app');
