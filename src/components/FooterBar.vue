@@ -1,8 +1,6 @@
 <template>
   <div class="mt-3 px-2 d-flex justify-content-between" style="font-size: .9rem;">
-    <div style="font-weight: 600;">
-      繁體中文
-    </div>
+    <Select :list="['繁體中文', 'English']" @select-value="getSelect" />
     <ul class="d-flex justify-content-between" style="width: 35%">
       <li class="cursor-point">說明</li>
       <li class="cursor-point">隱私權</li>
@@ -12,27 +10,26 @@
 </template>
 
 <script>
+import Select from '@/components/Select.vue';
 
 export default {
   name: 'FooterBar',
 
   components: {
+    Select,
   },
 
   data() {
     return {
-      account: '',
-      isFocus: false,
-      hasData: false,
+      lang: '',
     };
   },
 
-  watch: {
-  },
-
   methods: {
+    getSelect(value) {
+      this.lang = value;
+    },
   },
-
 };
 </script>
 
