@@ -13,9 +13,9 @@
         如果這不是你的電腦，請使用訪客模式以私密方式登入。
         <span class="text-primary cursor-point">瞭解詳情</span>
       </div>
-      <div class="footer mt-5">
-        建立帳戶
-        繼續
+      <div class="footer mt-5 d-flex justify-content-between">
+        <Button type="text" @click="actClick()">建立帳戶</Button>
+        <Button type="primary">繼續</Button>
       </div>
     </div>
   </div>
@@ -23,12 +23,14 @@
 
 <script>
 import Input from '@/components/Input.vue';
+import Button from '@/components/Button.vue';
 
 export default {
   name: 'Home',
 
   components: {
     Input,
+    Button,
   },
 
   data() {
@@ -50,11 +52,7 @@ export default {
   },
 
   methods: {
-    toggleInput(boolearn) {
-      this.isFocus = boolearn;
-    },
-    actInputFocus() {
-      this.$refs.login.focus();
+    actClick() {
     },
   },
 
