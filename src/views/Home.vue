@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="mx-auto" style="width: 448px; height: 550px">
-      <div class="login-card text-center">
+      <div class="card text-center">
         <span class="logo">Google</span>
         <h1>{{ $t('login_sign_in', $store.state.lang) }}</h1>
         <p>{{ $t('login_title', $store.state.lang) }}</p>
@@ -95,23 +95,3 @@ export default {
 
 };
 </script>
-
-<style lang="scss" scoped>
-.login-card {
-    width: 100%;
-    // height: 500px;
-    padding: 48px 40px 36px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-top: 20vh;
-
-    .logo {
-        font-size: 1.8rem;
-    }
-
-    h1 {
-        font-size: 1.5rem;
-    }
-}
-</style>
