@@ -11,7 +11,7 @@ const routes = [
     component: Home,
   },
   {
-    path: '/login-pass',
+    path: '/login-pass/:id',
     name: 'Pass',
     component: () => import('@/views/Pass.vue'),
   },

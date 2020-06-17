@@ -89,7 +89,7 @@ export default {
         return;
       }
 
-      this.$router.push('/login-pass');
+      this.$router.push(`/login-pass/${acc}`);
     },
   },
 
