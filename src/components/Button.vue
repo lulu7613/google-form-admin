@@ -3,7 +3,6 @@
     ref="btn"
     class="cursor-point"
     :class="`${type}-btn`"
-    @focus="actFocus()"
     @click="handleClick"
   >
       <slot></slot>
@@ -30,12 +29,6 @@ export default {
   },
 
   methods: {
-    actFocus() { // 點擊後取消 Focus 狀態
-      const vm = this;
-      setTimeout(() => {
-        vm.$refs.btn.blur();
-      }, 500);
-    },
     handleClick(evt) { // 點擊事件，用 emit 傳給父組件
       this.$emit('click', evt);
     },
