@@ -6,9 +6,21 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
+    path: '/login',
     name: 'Home',
     component: Home,
+    children: [
+      {
+        path: '/login',
+        name: 'Login',
+        component: () => import('@/views/Login.vue'),
+      },
+      {
+        path: '/pass/:id',
+        name: 'Pass',
+        component: () => import('@/views/Pass.vue'),
+      },
+    ],
   },
   {
     path: '/login-pass/:id',
