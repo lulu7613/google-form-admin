@@ -18,5 +18,6 @@
 
     "pass_title": "歡迎使用",
     "pass_placeholder": "輸入您的密碼",
-    "pass_forgot": "忘記密碼？"
+    "pass_forgot": "忘記密碼？",
+    "pass_no_pass_error" : "輸入密碼"
 }
