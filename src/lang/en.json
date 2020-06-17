@@ -8,6 +8,8 @@
     "login_create" : "Create account",
     "login_create_manage" : "To manage my business",
     "login_next" : "Next",
+    "login_no_acc_error" : "Enter an email or phone number",
+    "login_regExp_error" : "Enter a valid email or phone number",
     "footerBar_help" : "Help",
     "footerBar_privacy" : "Privacy",
     "footerBar_terms" : "Terms"

@@ -1,21 +1,25 @@
 <template>
-    <div class="input-body" :class="{'focus': isFocus, 'hasData': hasData && !isFocus}">
-        <input
-            ref="input"
-            :type="type"
-            :value="value"
-            :placeholder="placeholder"
-            @input="$emit('input', $event.target.value)"
-            @focus="toggleInput(true)"
-            @blur="toggleInput(false)"
-        >
-        <div
-            class="placeholder"
-            @click="actInputFocus()"
-        >
-            {{ placeholder }}
-        </div>
+  <div
+    class="input-body"
+    :class="{'focus': isFocus, 'hasData': hasData && !isFocus, 'error': isError}"
+  >
+    <input
+      ref="input"
+      :type="type"
+      :value="value"
+      :placeholder="placeholder"
+      @input="$emit('input', $event.target.value)"
+      @focus="toggleInput(true)"
+      @blur="toggleInput(false)"
+    >
+    <div
+      class="placeholder"
+      @click="actInputFocus()"
+    >
+      {{ placeholder }}
     </div>
+    <div v-show="isError" class="invalid-feedback">{{ errorMsg }}</div>
+  </div>
 </template>
 
 <script>
@@ -38,6 +42,14 @@ export default {
       default: '',
     },
     autoFocus: {
+      type: Boolean,
+      default: false,
+    },
+    errorMsg: {
+      type: String,
+      default: '',
+    },
+    isError: {
       type: Boolean,
       default: false,
     },
@@ -112,6 +124,13 @@ export default {
         transition: ease 150ms;
         padding: 0 5px;
     }
+
+    .invalid-feedback {
+      color: var(--danger-color);
+      font-size: .9rem;
+      text-align: left;
+      margin-top: 5px;
+    }
 }
 
 .input-body.focus {
@@ -133,6 +152,17 @@ export default {
     .placeholder {
         color: #80868b;
         transform: translate(-10px, -28px) scale(0.9);
+    }
+}
+
+.input-body.error {
+    input {
+        border: 2px solid var(--danger-color);
+    }
+
+    .placeholder {
+        color: var(--danger-color);
+        transform: translate(-10px, -50px) scale(0.9);
     }
 }
 </style>

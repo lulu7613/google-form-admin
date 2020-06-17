@@ -10,6 +10,8 @@
           type="text"
           :auto-focus="true"
           :placeholder="$t('login_account', $store.state.lang)"
+          :isError="isError"
+          :errorMsg="$t(error_msg_i18n, $store.state.lang)"
           class="mt-4"
         />
         <div class="text-left text-primary cursor-point mt-3">
@@ -29,7 +31,9 @@
             <div @click="test">{{ $t('login_create', $store.state.lang) }}</div>
             <div>{{ $t('login_create_manage', $store.state.lang) }}</div>
           </Popover>
-          <Button type="primary">{{ $t('login_next', $store.state.lang) }}</Button>
+          <Button type="primary" @click="redirectPassPage">
+            {{ $t('login_next', $store.state.lang) }}
+          </Button>
         </div>
       </div>
       <FooterBar />
@@ -56,6 +60,10 @@ export default {
   data() {
     return {
       account: '',
+      error_msg_i18n: '',
+      isError: false,
+      emailRule: /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/,
+      phoneRule: /^09[0-9]{8}$/,
     };
   },
 
@@ -63,10 +71,25 @@ export default {
   },
 
   methods: {
-    actClick() {
-    },
     test() {
       console.log(111111);
+    },
+    redirectPassPage() {
+      const acc = this.account;
+
+      if (!acc) {
+        this.isError = true;
+        this.error_msg_i18n = 'login_no_acc_error';
+        return;
+      }
+
+      if (!this.emailRule.test(acc) && !this.phoneRule.test(acc)) {
+        this.isError = true;
+        this.error_msg_i18n = 'login_regExp_error';
+        return;
+      }
+
+      this.$router.push('/login-pass');
     },
   },
 
@@ -76,7 +99,7 @@ export default {
 <style lang="scss" scoped>
 .login-card {
     width: 100%;
-    height: 500px;
+    // height: 500px;
     padding: 48px 40px 36px;
     box-sizing: border-box;
     border: 1px solid #ccc;
