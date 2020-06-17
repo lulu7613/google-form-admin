@@ -1,5 +1,6 @@
 import clickoutside from '@/assets/js/clickoutside'; // 引入自定義事件設定
 import i18n from '@/lang/lang';
+import './assets/icon/index';
 
 import Vue from 'vue';
 import App from './App.vue';
