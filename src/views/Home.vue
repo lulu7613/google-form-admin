@@ -11,8 +11,17 @@
 
         <div v-if="$route.name === 'Pass'">
           <h1>{{ $t('pass_title', $store.state.lang) }}</h1>
-          <div ref="tag" class="tag mx-auto px-3 py-1" @click="redirectLoginPage">
-            {{ account | showStyle }}
+          <div ref="tag" class="tag mx-auto px-2 py-1" @click="redirectLoginPage">
+            <svg-icon icon-class="user-1"
+              style="
+                border: 2px solid #000;
+                border-radius: 50%;
+                width: 12px;
+                height: 12px;
+              "
+             />
+            <span class="px-2">{{ account | showStyle }}</span>
+            <svg-icon icon-class="arrow-down" />
           </div>
         </div>
 
