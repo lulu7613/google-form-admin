@@ -42,9 +42,6 @@ export default {
   },
 
   methods: {
-    redirectLoginPage() {
-
-    },
     redirectRootPage() {
       const password = this.pass;
 
@@ -60,22 +57,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @font-face {
-    font-family: 'Google Sans';
-    src: url('~@/assets/font/GoogleSans-Bold.ttf');
-  }
-
-  .tag {
-    box-sizing: border-box;
-    width: fit-content;
-    border: 1px solid #ccc;
-    border-radius: 16px;
-    font-family: 'Google Sans',arial,sans-serif;
-    cursor: pointer;
-
-    &:active {
-      border: 1px solid #333;
-      background-color: #bfc2c2;
-    }
-  }
 </style>

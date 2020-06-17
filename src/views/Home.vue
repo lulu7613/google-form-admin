@@ -3,6 +3,7 @@
     <div class="mx-auto" style="width: 448px; height: 550px">
       <div class="card text-center">
         <span class="logo">Google</span>
+
         <div v-if="$route.name === 'Login'">
           <h1>{{ $t('login_sign_in', $store.state.lang) }}</h1>
           <p>{{ $t('login_title', $store.state.lang) }}</p>
@@ -48,9 +49,16 @@ export default {
     },
   },
 
-  data() {
-    return {
-    };
+  computed: {
+    account() {
+      return this.$store.state.user_account;
+    },
+  },
+
+  methods: {
+    redirectLoginPage() {
+      this.$router.push('/login');
+    },
   },
 };
 </script>
@@ -93,4 +101,22 @@ export default {
     transform: translate(-100%, 0);
   }
 
+  @font-face {
+    font-family: 'Google Sans';
+    src: url('~@/assets/font/GoogleSans-Bold.ttf');
+  }
+
+  .tag {
+    box-sizing: border-box;
+    width: fit-content;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    font-family: 'Google Sans',arial,sans-serif;
+    cursor: pointer;
+
+    &:active {
+      border: 1px solid #333;
+      background-color: #bfc2c2;
+    }
+  }
 </style>

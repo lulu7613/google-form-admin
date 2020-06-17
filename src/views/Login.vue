@@ -57,7 +57,11 @@ export default {
     };
   },
 
-  watch: {
+  mounted() {
+    const account = this.$store.state.user_account;
+    if (account) {
+      this.account = account;
+    }
   },
 
   methods: {
@@ -79,6 +83,7 @@ export default {
         return;
       }
 
+      this.$store.commit('SET_ACCOUNT', acc);
       this.$router.push(`/pass/${acc}`);
     },
   },
