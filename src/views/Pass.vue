@@ -3,22 +3,21 @@
     <div class="mx-auto" style="width: 448px; height: 550px">
       <div class="login-card text-center">
         <span class="logo">Google</span>
-        <!-- <h1>{{ $t('login_sign_in', $store.state.lang) }}</h1>
-        <p>{{ $t('login_title', $store.state.lang) }}</p> -->
+        <h1>{{ $t('pass_title', $store.state.lang) }}</h1>
         <Input
           v-model="account"
           type="text"
           :auto-focus="true"
-          :placeholder="$t('login_account', $store.state.lang)"
+          :placeholder="$t('pass_placeholder', $store.state.lang)"
           class="mt-4"
         />
-        <div class="text-left text-primary cursor-point mt-3">
-          <!-- {{ $t('login_forgot', $store.state.lang) }} -->
-        </div>
         <div class="footer mt-5 d-flex justify-content-between">
-          <!-- <Button type="primary">
-            {{ $t('login_next', $store.state.lang) }}
-          </Button> -->
+          <div class="text-left text-primary cursor-point mt-3">
+            {{ $t('pass_forgot', $store.state.lang) }}
+          </div>
+          <Button type="primary">
+            {{ $t('next', $store.state.lang) }}
+          </Button>
         </div>
       </div>
       <FooterBar />

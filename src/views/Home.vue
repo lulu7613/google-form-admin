@@ -9,7 +9,7 @@
           v-model="account"
           type="text"
           :auto-focus="true"
-          :placeholder="$t('login_account', $store.state.lang)"
+          :placeholder="$t('login_placeholder', $store.state.lang)"
           :isError="isError"
           :errorMsg="$t(error_msg_i18n, $store.state.lang)"
           class="mt-4"
@@ -32,7 +32,7 @@
             <div>{{ $t('login_create_manage', $store.state.lang) }}</div>
           </Popover>
           <Button type="primary" @click="redirectPassPage">
-            {{ $t('login_next', $store.state.lang) }}
+            {{ $t('next', $store.state.lang) }}
           </Button>
         </div>
       </div>

@@ -1,16 +1,22 @@
 {
+    "next" : "Next",
+    
     "login_sign_in": "Sign in",
     "login_title" : "Use your Google Account",
-    "login_account" : " Email or phone ",
+    "login_placeholder" : " Email or phone ",
     "login_forgot" : "Forgot email?",
     "login_message" : "Not your computer? Use Guest mode to sign in privately.",
     "login_learn_more" : "Learn more",
     "login_create" : "Create account",
     "login_create_manage" : "To manage my business",
-    "login_next" : "Next",
     "login_no_acc_error" : "Enter an email or phone number",
     "login_regExp_error" : "Enter a valid email or phone number",
+
     "footerBar_help" : "Help",
     "footerBar_privacy" : "Privacy",
-    "footerBar_terms" : "Terms"
+    "footerBar_terms" : "Terms",
+
+    "pass_title": "Welcome",
+    "pass_placeholder": "Enter your password",
+    "pass_forgot": "Forgot password?"
 }
