@@ -18,7 +18,10 @@
     >
       {{ placeholder }}
     </div>
-    <div v-show="isError" class="invalid-feedback">{{ errorMsg }}</div>
+    <div v-show="isError" class="invalid-feedback text-danger">
+      <svg-icon icon-class="warning" />
+      {{ errorMsg }}
+    </div>
   </div>
 </template>
 
@@ -126,7 +129,6 @@ export default {
     }
 
     .invalid-feedback {
-      color: var(--danger-color);
       font-size: .9rem;
       text-align: left;
       margin-top: 5px;
