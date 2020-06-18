@@ -19,5 +19,7 @@
     "pass_title": "Welcome",
     "pass_placeholder": "Enter your password",
     "pass_forgot": "Forgot password?",
-    "pass_no_pass_error" : "Enter password"
+    "pass_no_pass_error" : "Enter password",
+    "pass_icon_show" : "Show password",
+    "pass_icon_close" : "Hide password"
 }

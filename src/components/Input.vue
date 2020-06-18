@@ -23,7 +23,13 @@
       @focus="toggleInput(true)"
       @blur="toggleInput(false)"
     >
-    <div v-if="type === 'password'" class="pass-icon cursor-point" @click="actTogglePassIcon">
+    <div
+      v-if="type === 'password'"
+      ref="pass-icon"
+      class="pass-icon cursor-point tooltip"
+      :data-tooltip="$t(passTipText, $store.state.lang)"
+      @click="actTogglePassIcon"
+    >
       <svg-icon v-show="!showPass" icon-class="eye-show" size="25px" />
       <svg-icon v-show="showPass" icon-class="eye-close" size="25px" />
     </div>
@@ -83,6 +89,7 @@ export default {
       isFocus: false,
       hasData: false,
       showPass: false,
+      passTipText: 'pass_icon_show',
     };
   },
 
@@ -118,8 +125,10 @@ export default {
 
       if (this.showPass) {
         this.$refs['input-text'].focus();
+        this.passTipText = 'pass_icon_show';
       } else {
         this.actInputFocus();
+        this.passTipText = 'pass_icon_close';
       }
     },
   },
