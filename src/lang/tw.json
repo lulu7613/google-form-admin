@@ -21,5 +21,7 @@
     "pass_forgot": "忘記密碼？",
     "pass_no_pass_error" : "輸入密碼",
     "pass_icon_show" : "顯示密碼",
-    "pass_icon_close" : "隱藏密碼"
+    "pass_icon_close" : "隱藏密碼",
+
+    "create_logo_text": "只要擁有一個帳戶，就能使用所有 Google 服務。"
 }

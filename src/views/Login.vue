@@ -23,8 +23,8 @@
     </div>
     <div class="footer mt-5 d-flex justify-content-between">
       <Popover :title="$t('login_create', $store.state.lang)">
-        <div @click="test">{{ $t('login_create', $store.state.lang) }}</div>
-        <div>{{ $t('login_create_manage', $store.state.lang) }}</div>
+        <div @click="redirectCreatePage">{{ $t('login_create', $store.state.lang) }}</div>
+        <div @click="redirectCreatePage">{{ $t('login_create_manage', $store.state.lang) }}</div>
       </Popover>
       <Button type="primary" @click="redirectPassPage">
         {{ $t('next', $store.state.lang) }}
@@ -65,8 +65,8 @@ export default {
   },
 
   methods: {
-    test() {
-      console.log(111111);
+    redirectCreatePage() {
+      this.$router.push('/create');
     },
     redirectPassPage() {
       const acc = this.account;

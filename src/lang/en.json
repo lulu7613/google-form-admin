@@ -21,5 +21,7 @@
     "pass_forgot": "Forgot password?",
     "pass_no_pass_error" : "Enter password",
     "pass_icon_show" : "Show password",
-    "pass_icon_close" : "Hide password"
+    "pass_icon_close" : "Hide password",
+
+    "create_logo_text": "One account. All of Google working for you."
 }

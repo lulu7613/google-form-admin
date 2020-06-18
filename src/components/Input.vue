@@ -1,28 +1,53 @@
 <template>
   <div
     class="input-body"
-    :class="{'focus': isFocus, 'hasData': hasData && !isFocus, 'error': isError}"
+    :class="{
+      'small': size === 'small',
+      'focus': isFocus,
+      'hasData': hasData && !isFocus,
+      'error': isError
+    }"
   >
-    <input
-      v-show="!showPass"
-      ref="input"
-      :type="type"
-      :value="value"
-      :placeholder="placeholder"
-      @input="$emit('input', $event.target.value)"
-      @focus="toggleInput(true)"
-      @blur="toggleInput(false)"
-    >
-    <input
-      v-show="showPass"
-      ref="input-text"
-      type="text"
-      :value="value"
-      :placeholder="placeholder"
-      @input="$emit('input', $event.target.value)"
-      @focus="toggleInput(true)"
-      @blur="toggleInput(false)"
-    >
+    <div v-if="type !== 'email'">
+      <input
+        v-show="!showPass"
+        ref="input"
+        :type="type"
+        :value="value"
+        :placeholder="placeholder"
+        @input="$emit('input', $event.target.value)"
+        @focus="toggleInput(true)"
+        @blur="toggleInput(false)"
+      >
+      <input
+        v-show="showPass"
+        ref="input-text"
+        type="text"
+        :value="value"
+        :placeholder="placeholder"
+        @input="$emit('input', $event.target.value)"
+        @focus="toggleInput(true)"
+        @blur="toggleInput(false)"
+      >
+      </div>
+      <div
+        v-if="type === 'email'"
+        class="d-flex email-input"
+      >
+        <input
+          style="border: 0"
+          ref="input"
+          type="text"
+          :value="value"
+          :placeholder="placeholder"
+          @input="$emit('input', $event.target.value)"
+          @focus="toggleInput(true)"
+          @blur="toggleInput(false)"
+        >
+        <div class="pr-2" style="align-self: center">
+          <slot name="email"></slot>
+        </div>
+    </div>
     <div
       v-if="type === 'password'"
       ref="pass-icon"
@@ -51,6 +76,10 @@ export default {
   name: 'Input',
 
   props: {
+    size: {
+      type: String,
+      default: '',
+    },
     type: {
       type: String,
       default: 'text',
@@ -175,10 +204,38 @@ export default {
       text-align: left;
       margin-top: 5px;
     }
+
+    .email-input {
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+}
+
+.input-body.small {
+  input {
+    padding: 10px 15px;
+  }
+
+  .placeholder {
+    bottom: 10px;
+    left: 8px;
+  }
+
+  &.focus, &.hasData {
+    .placeholder {
+      transform: translate(-5px, -19px) scale(0.8);
+    }
+  }
+
+  &.error {
+    .placeholder {
+      transform: translate(-5px, -40px) scale(0.8);
+    }
+  }
 }
 
 .input-body.focus {
-    input {
+    input, .email-input {
         border: 2px solid var(--primary-color);
     }
 
@@ -189,7 +246,7 @@ export default {
 }
 
 .input-body.hasData {
-    input {
+    input, .email-input {
         border: 1px solid #ccc;
     }
 
@@ -200,7 +257,7 @@ export default {
 }
 
 .input-body.error {
-    input {
+    input, .email-input {
         border: 2px solid var(--danger-color);
     }
 
