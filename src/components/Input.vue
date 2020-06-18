@@ -23,9 +23,9 @@
       @focus="toggleInput(true)"
       @blur="toggleInput(false)"
     >
-    <div v-if="type === 'password'" class="cursor-point" @click="actTogglePassIcon">
-      <svg-icon v-show="!showPass" icon-class="eye-show" class="pass-icon" />
-      <svg-icon v-show="showPass" icon-class="eye-close" class="pass-icon" />
+    <div v-if="type === 'password'" class="pass-icon cursor-point" @click="actTogglePassIcon">
+      <svg-icon v-show="!showPass" icon-class="eye-show" size="25px" />
+      <svg-icon v-show="showPass" icon-class="eye-close" size="25px" />
     </div>
     <div
       class="placeholder"
@@ -147,8 +147,6 @@ export default {
     .pass-icon {
       position: absolute;
       color: rgba(0,0,0,0.651);
-      width: 25px;
-      height: 25px;
       right: 10px;
       top: 15px;
     }
