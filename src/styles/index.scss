@@ -17,3 +17,45 @@ ul, li {
     margin: 0;
     list-style: none;
 }
+
+.card {
+    width: 100%;
+    min-height: 530px;
+    padding: 48px 40px 36px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top: 20vh;
+
+    .logo {
+        font-size: 1.8rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .view-content {
+      width: 100%;
+      overflow-x: hidden;
+    }
+  }
+
+  .slide-left-enter-active,
+  .slide-left-leave-active {
+    will-change: transform;
+    transition: ease-in 300ms;
+  }
+  .slide-left-enter {
+    opacity: 0;
+    transform: translate(100%, 0);
+  }
+  .slide-left-leave-active {
+    opacity: 1;
+    transform: translate(-100%, 0);
+  }
+
+  @font-face {
+    font-family: 'Google Sans';
+    src: url('~@/assets/font/GoogleSans-Bold.ttf');
+  }
