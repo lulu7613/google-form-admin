@@ -2,7 +2,7 @@
   <div>
     <Input
       v-model="pass"
-      type="text"
+      type="password"
       :auto-focus="true"
       :placeholder="$t('pass_placeholder', $store.state.lang)"
       :isError="isError"

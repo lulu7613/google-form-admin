@@ -4,6 +4,7 @@
     :class="{'focus': isFocus, 'hasData': hasData && !isFocus, 'error': isError}"
   >
     <input
+      v-show="!showPass"
       ref="input"
       :type="type"
       :value="value"
@@ -12,6 +13,20 @@
       @focus="toggleInput(true)"
       @blur="toggleInput(false)"
     >
+    <input
+      v-show="showPass"
+      ref="input-text"
+      type="text"
+      :value="value"
+      :placeholder="placeholder"
+      @input="$emit('input', $event.target.value)"
+      @focus="toggleInput(true)"
+      @blur="toggleInput(false)"
+    >
+    <div v-if="type === 'password'" class="cursor-point" @click="actTogglePassIcon">
+      <svg-icon v-show="!showPass" icon-class="eye-show" class="pass-icon" />
+      <svg-icon v-show="showPass" icon-class="eye-close" class="pass-icon" />
+    </div>
     <div
       class="placeholder"
       @click="actInputFocus()"
@@ -67,6 +82,7 @@ export default {
     return {
       isFocus: false,
       hasData: false,
+      showPass: false,
     };
   },
 
@@ -96,6 +112,16 @@ export default {
         this.$refs.input.focus();
       }
     },
+    actTogglePassIcon() {
+      this.isFocus = true;
+      this.showPass = !this.showPass;
+
+      if (this.showPass) {
+        this.$refs['input-text'].focus();
+      } else {
+        this.actInputFocus();
+      }
+    },
   },
 
 };
@@ -116,6 +142,15 @@ export default {
         &::-webkit-input-placeholder {
             opacity: 0;
         }
+    }
+
+    .pass-icon {
+      position: absolute;
+      color: rgba(0,0,0,0.651);
+      width: 25px;
+      height: 25px;
+      right: 10px;
+      top: 15px;
     }
 
     .placeholder {
