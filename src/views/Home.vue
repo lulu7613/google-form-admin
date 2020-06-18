@@ -58,10 +58,6 @@ export default {
     },
   },
 
-  mounted() {
-    this.checkUserAccount();
-  },
-
   computed: {
     account() {
       return this.$store.state.user_account;
@@ -71,11 +67,6 @@ export default {
   methods: {
     redirectLoginPage() {
       this.$router.push('/login');
-    },
-    checkUserAccount() {
-      if (!this.account) {
-        this.redirectLoginPage();
-      }
     },
   },
 };

@@ -32,6 +32,10 @@ export default {
     Button,
   },
 
+  mounted() {
+    this.checkStoreUserAccount();
+  },
+
   data() {
     return {
       account: this.$route.params.id,
@@ -49,6 +53,14 @@ export default {
         this.isError = true;
         this.error_msg_i18n = 'pass_no_pass_error';
         return;
+      }
+    },
+
+    checkStoreUserAccount() {
+      const account = this.$store.state.user_account;
+
+      if (!account) {
+        this.$router.push('/login');
       }
     },
   },
