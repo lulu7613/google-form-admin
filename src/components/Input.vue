@@ -10,19 +10,8 @@
   >
     <div v-if="type !== 'email'">
       <input
-        v-show="!showPass"
         ref="input"
-        :type="type"
-        :value="value"
-        :placeholder="placeholder"
-        @input="$emit('input', $event.target.value)"
-        @focus="toggleInput(true)"
-        @blur="toggleInput(false)"
-      >
-      <input
-        v-show="showPass"
-        ref="input-text"
-        type="text"
+        :type="inputType"
         :value="value"
         :placeholder="placeholder"
         @input="$emit('input', $event.target.value)"
@@ -37,7 +26,7 @@
         <input
           style="border: 0"
           ref="input"
-          type="text"
+          :type="inputType"
           :value="value"
           :placeholder="placeholder"
           @input="$emit('input', $event.target.value)"
@@ -113,6 +102,15 @@ export default {
     event: 'input',
   },
 
+  computed: {
+    inputType() {
+      if (this.showPass) {
+        return 'text';
+      }
+      return this.type;
+    },
+  },
+
   data() {
     return {
       isFocus: false,
@@ -149,16 +147,14 @@ export default {
       }
     },
     actTogglePassIcon() {
-      this.isFocus = true;
       this.showPass = !this.showPass;
 
       if (this.showPass) {
-        this.$refs['input-text'].focus();
         this.passTipText = 'pass_icon_show';
       } else {
-        this.actInputFocus();
         this.passTipText = 'pass_icon_close';
       }
+      this.actInputFocus();
     },
   },
 
