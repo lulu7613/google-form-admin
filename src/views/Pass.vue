@@ -3,6 +3,7 @@
     <Input
       v-model="pass"
       type="password"
+      :showPassIcon="true"
       :auto-focus="true"
       :placeholder="$t('pass_placeholder', $store.state.lang)"
       :isError="isError"

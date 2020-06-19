@@ -38,7 +38,7 @@
         </div>
     </div>
     <div
-      v-if="type === 'password'"
+      v-if="showPassIcon"
       ref="pass-icon"
       class="pass-icon cursor-point tooltip"
       :data-tooltip="$t(passTipText, $store.state.lang)"
@@ -92,6 +92,10 @@ export default {
       default: '',
     },
     isError: {
+      type: Boolean,
+      default: false,
+    },
+    showPassIcon: {
       type: Boolean,
       default: false,
     },
