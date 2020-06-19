@@ -52,8 +52,16 @@
                 {{ userNameText }}
               </div>
             </div>
+            <div class="mt-4">
+              <PassCheckInput
+                size="small"
+              />
+            </div>
+              <!-- <div v-show="form.user_name !== null" class="mt-2" style="font-size: .9rem;">
+                請混合使用 8 個字元以上的英文字母、數字和符號
+              </div> -->
           </div>
-          <div>
+          <div class="mt-4">
             <Button type="primary" @click="redirect">
               {{ $t('next', $store.state.lang) }}
             </Button>
@@ -82,6 +90,7 @@
 <script>
 import FooterBar from '@/components/FooterBar.vue';
 import Input from '@/components/Input.vue';
+import PassCheckInput from '@/components/PassCheckInput.vue';
 import Button from '@/components/Button.vue';
 
 export default {
@@ -90,6 +99,7 @@ export default {
   components: {
     FooterBar,
     Input,
+    PassCheckInput,
     Button,
   },
 
