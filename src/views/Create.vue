@@ -119,7 +119,6 @@
 <script>
 import FooterBar from '@/components/FooterBar.vue';
 import Input from '@/components/Input.vue';
-import PassCheckInput from '@/components/PassCheckInput.vue';
 import Button from '@/components/Button.vue';
 
 export default {
@@ -128,7 +127,6 @@ export default {
   components: {
     FooterBar,
     Input,
-    PassCheckInput,
     Button,
   },
 
