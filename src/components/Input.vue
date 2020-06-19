@@ -125,7 +125,7 @@ export default {
   },
 
   mounted() {
-    this.actAutoFocus();
+    this.checkAutoFocus();
   },
 
   watch: {
@@ -136,6 +136,18 @@ export default {
         this.hasData = false;
       }
     },
+
+    isFocus(value) {
+      if (value) {
+        this.$refs.input.focus();
+      }
+    },
+
+    autoFocus(value) {
+      if (value) {
+        this.isFocus = true;
+      }
+    },
   },
 
   methods: {
@@ -143,11 +155,11 @@ export default {
       this.isFocus = boolearn;
     },
     actInputFocus() {
-      this.$refs.input.focus();
+      this.isFocus = true;
     },
-    actAutoFocus() {
+    checkAutoFocus() {
       if (this.autoFocus) {
-        this.$refs.input.focus();
+        this.isFocus = true;
       }
     },
     actTogglePassIcon() {

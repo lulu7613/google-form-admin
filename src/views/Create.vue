@@ -13,7 +13,7 @@
                   type="text"
                   v-model="form.first_name"
                   placeholder="姓名"
-                  :auto-focus="true"
+                  :auto-focus="autoFocus === 'first_name'"
                   errorMsg="請輸入姓名"
                   :isError="form.first_name === null"
                 />
@@ -24,6 +24,7 @@
                   type="text"
                   v-model="form.last_name"
                   placeholder="名字"
+                  :auto-focus="autoFocus === 'last_name'"
                   :isError="form.last_name === null"
                 />
               </div>
@@ -31,19 +32,24 @@
             <div class="mt-4">
               <Input
                 size="small"
-                type="email"
+                :type="userNameType"
                 v-model="form.user_name"
                 placeholder="使用者名稱"
+                :auto-focus="autoFocus === 'user_name'"
                 errorMsg="請輸入使用者名稱"
                 :isError="form.user_name === null"
               >
-                <template v-slot:email>@gmail.com</template>
+                <template v-slot:email>{{ emailInputText }}</template>
               </Input>
               <div v-show="form.user_name !== null" class="mt-2" style="font-size: .9rem;">
                 您可以使用英文字母、數字和半形句號
               </div>
-              <div class="mt-2 text-primary cursor-point" style="font-size: .9rem;">
-                改為使用我目前的電子郵件地址
+              <div
+                class="mt-2 text-primary cursor-point"
+                style="font-size: .9rem;"
+                @click="changUserNameType"
+              >
+                {{ userNameText }}
               </div>
             </div>
             <div class="mt-4 d-flex justify-content-between">
@@ -113,6 +119,7 @@
 <script>
 import FooterBar from '@/components/FooterBar.vue';
 import Input from '@/components/Input.vue';
+import PassCheckInput from '@/components/PassCheckInput.vue';
 import Button from '@/components/Button.vue';
 
 export default {
@@ -121,11 +128,13 @@ export default {
   components: {
     FooterBar,
     Input,
+    PassCheckInput,
     Button,
   },
 
   data() {
     return {
+      autoFocus: 'first_name',
       form: {
         first_name: '',
         last_name: '',
@@ -135,10 +144,27 @@ export default {
       },
       passType: 'password',
       showPass: false,
+      userNameType: 'email',
+      userNameText: '改為使用我目前的電子郵件地址',
+      emailInputText: '@gmail.com',
     };
   },
 
   methods: {
+    changUserNameType() {
+      this.autoFocus = '';
+
+      if (this.userNameType === 'email') {
+        this.userNameType = 'text';
+        this.userNameText = '改為建立新的 Gmail 地址';
+      } else {
+        this.userNameType = 'email';
+        this.userNameText = '改為使用我目前的電子郵件地址';
+      }
+
+      setTimeout(() => this.autoFocus = 'user_name', 0)
+    },
+
     redirect() {
       this.form.first_name = null;
       this.form.user_name = null;
