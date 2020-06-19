@@ -111,15 +111,17 @@ export default {
 
   methods: {
     changUserNameType() {
+      this.autoFocus = '';
+
       if (this.userNameType === 'email') {
         this.userNameType = 'text';
         this.userNameText = '改為建立新的 Gmail 地址';
-        this.autoFocus = 'last_name';
       } else {
         this.userNameType = 'email';
         this.userNameText = '改為使用我目前的電子郵件地址';
-        this.autoFocus = 'first_name';
       }
+
+      setTimeout(() => this.autoFocus = 'user_name', 0)
     },
 
     redirect() {
