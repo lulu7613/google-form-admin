@@ -20,12 +20,17 @@ export default {
       type: Array,
       default: () => [],
     },
+
+    initValue: {
+      type: String,
+      default: '',
+    },
   },
 
   data() {
     return {
       ulShow: false, // 是否顯示 ul
-      selectVal: this.list[0], // 選取的值，態綁定 input 的值
+      selectVal: this.initValue, // 選取的值，態綁定 input 的值
     };
   },
 
