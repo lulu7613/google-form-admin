@@ -1,23 +1,38 @@
 <template>
-  <div
-    class="input-body"
-    :class="{
-      'small': size === 'small',
-      'focus': isFocus,
-      'hasData': hasData && !isFocus,
-      'error': isError
-    }"
-  >
-    <div v-if="type !== 'email'">
-      <input
-        ref="input"
-        :type="inputType"
-        :value="value"
-        :placeholder="placeholder"
-        @input="$emit('input', $event.target.value)"
-        @focus="toggleInput(true)"
-        @blur="toggleInput(false)"
+  <div>
+    <div style="position: relative; z-index: 1001;">
+      <div
+        class="placeholder"
+        :class="{
+          'small': size === 'small',
+          'focus': isFocus,
+          'hasData': hasData && !isFocus,
+          'error': isError
+        }"
+        @click="actInputFocus()"
       >
+        {{ placeholder }}
+      </div>
+    </div>
+    <div
+      class="input-body"
+      :class="{
+        'small': size === 'small',
+        'focus': isFocus,
+        'hasData': hasData && !isFocus,
+        'error': isError
+      }"
+    >
+      <div v-if="type !== 'email'">
+        <input
+          ref="input"
+          :type="inputType"
+          :value="value"
+          :placeholder="placeholder"
+          @input="$emit('input', $event.target.value)"
+          @focus="toggleInput(true)"
+          @blur="toggleInput(false)"
+        >
       </div>
       <div
         v-if="type === 'email'"
@@ -36,26 +51,21 @@
         <div class="pr-2" style="align-self: center">
           <slot name="email"></slot>
         </div>
-    </div>
-    <div
-      v-if="showPassIcon"
-      ref="pass-icon"
-      class="pass-icon cursor-point tooltip"
-      :data-tooltip="$t(passTipText, $store.state.lang)"
-      @click="actTogglePassIcon"
-    >
-      <svg-icon v-show="!showPass" icon-class="eye-show" size="25px" />
-      <svg-icon v-show="showPass" icon-class="eye-close" size="25px" />
-    </div>
-    <div
-      class="placeholder"
-      @click="actInputFocus()"
-    >
-      {{ placeholder }}
-    </div>
-    <div v-show="isError" class="invalid-feedback text-danger">
-      <span class="mr-1"><svg-icon icon-class="warning" /></span>
-      <span>{{ errorMsg }}</span>
+      </div>
+      <div
+        v-if="showPassIcon"
+        ref="pass-icon"
+        class="pass-icon cursor-point tooltip"
+        :data-tooltip="$t(passTipText, $store.state.lang)"
+        @click="actTogglePassIcon"
+      >
+        <svg-icon v-show="!showPass" icon-class="eye-show" size="25px" />
+        <svg-icon v-show="showPass" icon-class="eye-close" size="25px" />
+      </div>
+      <div v-show="isError" class="invalid-feedback text-danger">
+        <span class="mr-1"><svg-icon icon-class="warning" /></span>
+        <span>{{ errorMsg }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -178,6 +188,40 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .placeholder {
+    color: #80868b;
+    position: absolute;
+    top: 18px;
+    left: 10px;
+    background-color: #fff;
+    transition: ease 150ms;
+    padding: 0 5px;
+
+    &.focus, &.hasData, &.error {
+      transform: translate(-10px, -26px) scale(0.9);
+    }
+  }
+
+  .placeholder.small {
+    top: 7px;
+    left: 8px;
+
+    &.focus, &.hasData, &.error {
+      transform: translate(-5px, -20px) scale(0.9);
+    }
+  }
+
+  .focus {
+    color: var(--primary-color);
+  }
+  .hasData {
+    color: #80868b;
+  }
+  .error {
+    color: var(--danger-color);
+  }
+
+
 .input-body {
     position: relative;
 
@@ -201,16 +245,6 @@ export default {
       top: 15px;
     }
 
-    .placeholder {
-        color: #80868b;
-        position: absolute;
-        bottom: 17px;
-        left: 8px;
-        background-color: #fff;
-        transition: ease 150ms;
-        padding: 0 5px;
-    }
-
     .invalid-feedback {
       display: flex;
       font-size: .9rem;
@@ -228,33 +262,11 @@ export default {
   input {
     padding: 10px 15px;
   }
-
-  .placeholder {
-    bottom: 10px;
-    left: 8px;
-  }
-
-  &.focus, &.hasData {
-    .placeholder {
-      transform: translate(-5px, -19px) scale(0.8);
-    }
-  }
-
-  &.error {
-    .placeholder {
-      transform: translate(-5px, -40px) scale(0.8);
-    }
-  }
 }
 
 .input-body.focus {
     input, .email-input {
         border: 2px solid var(--primary-color);
-    }
-
-    .placeholder {
-        color: var(--primary-color);
-        transform: translate(-10px, -28px) scale(0.9);
     }
 }
 
@@ -262,21 +274,11 @@ export default {
     input, .email-input {
         border: 1px solid #ccc;
     }
-
-    .placeholder {
-        color: #80868b;
-        transform: translate(-10px, -28px) scale(0.9);
-    }
 }
 
 .input-body.error {
     input, .email-input {
         border: 2px solid var(--danger-color);
-    }
-
-    .placeholder {
-        color: var(--danger-color);
-        transform: translate(-10px, -50px) scale(0.9);
     }
 }
 </style>
