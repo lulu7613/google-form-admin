@@ -11,9 +11,9 @@
                 <Input
                   size="small"
                   type="text"
-                  v-model.trim="form.first_name"
+                  v-model.trim="form.firstName"
                   placeholder="姓名"
-                  :auto-focus="autoFocus === 'first_name'"
+                  :auto-focus="autoFocus === 'firstName'"
                   errorMsg="請輸入姓名"
                   :isError="firstNameState"
                 />
@@ -22,9 +22,9 @@
                 <Input
                   size="small"
                   type="text"
-                  v-model.trim="form.last_name"
+                  v-model.trim="form.lastName"
                   placeholder="名字"
-                  :auto-focus="autoFocus === 'last_name'"
+                  :auto-focus="autoFocus === 'lastName'"
                   errorMsg="請輸入名字"
                   :isError="lastNameState"
                 />
@@ -34,9 +34,9 @@
               <Input
                 size="small"
                 :type="userNameType"
-                v-model.trim="form.user_name"
+                v-model.trim="form.userName"
                 placeholder="使用者名稱"
-                :auto-focus="autoFocus === 'user_name'"
+                :auto-focus="autoFocus === 'userName'"
                 :errorMsg="userNameErrMsg"
                 :isError="userNameState"
               >
@@ -69,9 +69,9 @@
                 <Input
                   size="small"
                   :type="passType"
-                  v-model.trim="check_pass"
+                  v-model.trim="checkPass"
                   placeholder="確認"
-                  :auto-focus="autoFocus === 'check_pass'"
+                  :auto-focus="autoFocus === 'checkPass'"
                   :errorMsg="checkPassErrMag"
                   :isError="checkPassState"
                 />
@@ -135,7 +135,7 @@ export default {
 
   data() {
     return {
-      autoFocus: 'first_name',
+      autoFocus: 'firstName',
       passType: 'password',
       showPass: false,
       userNameType: 'email',
@@ -143,12 +143,12 @@ export default {
       emailInputText: '@gmail.com',
 
       form: {
-        first_name: '',
-        last_name: '',
-        user_name: '',
+        firstName: '',
+        lastName: '',
+        userName: '',
         pass: '',
       },
-      check_pass: '',
+      checkPass: '',
       emailRule: /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/,
 
       firstNameState: false,
@@ -176,7 +176,7 @@ export default {
         this.userNameText = '改為使用我目前的電子郵件地址';
       }
 
-      setTimeout(() => this.autoFocus = 'user_name', 0)
+      setTimeout(() => this.autoFocus = 'userName', 0)
     },
 
     actTogglePassIcon() {
@@ -194,64 +194,94 @@ export default {
     },
 
     redirect() {
-      let validStepCheck = 0; // 統計驗證有幾個步驟
-      this.checkPassState = false; // init
-  
-      const keys = Object.keys(this.form); // 驗證是否有空值
-      const values = Object.values(this.form);
-      const index = values.indexOf('');
-      if (index > -1) {
-        console.log('檢測空值');
-        this.firstNameState = values[0] === '' ? true : false;
-        this.lastNameState = values[1] === '' ? true : false;
-        this.userNameState = values[2] === '' ? true : false;
-        this.passState = values[3] === '' ? true : false;
-        this.firstNameErrMsg = ' 請輸入姓名';
-        this.lastNameErrMsg = '請輸入名字';
-        this.passErrMsg = '輸入密碼';
-        this.userNameErrMsg = '請選擇 Gmail 地址';
-        this.checkPassErrMag = '確認密碼';
-        this.autoFocus = keys[index];
-        validStepCheck++;
-      }
+      const validForm = this.validForm();                        // 驗證是否有空值
+      const validUserNameType = this.validUserNameType();        // 檢測 userName 的 email 格式
+      const vaildPassLen = this.vaildPassLen();                  // 檢測 userName 的 email 格式
+      const vaildCheckPass = this.vaildCheckPass(vaildPassLen);  // 驗證 check-pass (空值 & 相符)
 
-      if (this.userNameType === 'text' && !this.emailRule.test(this.form.user_name) && this.form.user_name) { // 檢測 user_name 的 email 格式
-        console.log('檢測 user_name 的 email 格式');
-        this.userNameState = true;
-        this.userNameErrMsg = 'email 格式不對';
-        validStepCheck++;
-      }
-      
-      if (this.form.pass.length > 0 && this.form.pass.length < 8) { // 驗證 pass 長度
-        console.log('驗證 pass 長度');
-        this.isError = true;
-        this.passState = true;
-        this.passErrMsg = '請設定 8 個字元以上的密碼';
-        validStepCheck++;
-
-      } else if (this.form.pass && !this.check_pass) { // 驗證 check-pass
-        console.log('驗證 check-pass');
-        this.checkPassState = true;
-        validStepCheck++;
-
-      } else if (this.form.pass !== this.check_pass) { // 驗證 check-pass 與 pass
-        console.log('驗證 check-pass 與 pass');
-        this.checkPassState = true;
-        this.checkPassErrMag = '這些密碼不相符，請再試一次。'
-        validStepCheck++;
-      }
-
-      console.log(validStepCheck);
+      const validStepCheck = [validForm, validUserNameType, vaildPassLen, vaildCheckPass].reduce((a, b) => a + b); // 統計驗證結果
       if (validStepCheck > 0) return;
       
       const vm = this.form;
       const form = {
-        first_name: vm.first_name,
-        last_name: vm.last_name,
-        user_name: this.userNameType === 'text' ? vm.user_name : vm.user_name + this.emailInputText,
+        firstName: vm.firstName,
+        lastName: vm.lastName,
+        userName: this.userNameType === 'text' ? vm.userName : vm.userName + this.emailInputText,
         password: vm.pass,
       }
       console.log('註冊新帳號成功!，使用者資訊: ', form);
+    },
+
+    validForm() {
+      this.autoFocus = '';
+      const vm = this;
+      const keys = Object.keys(this.form);
+      const values = Object.values(this.form);
+
+      function check(index, msg) {
+        const res = values[index] === '' ? true : false;
+        if (res) {
+          vm[`${keys[index]}ErrMsg`] = msg;
+        }
+        return res
+      }
+      this.firstNameState = check(0, '請輸入姓名');
+      this.lastNameState = check(1, '請輸入名字');
+      this.userNameState = check(2, '請選擇 Gmail 地址');
+      this.passState = check(3, '輸入密碼');
+
+      const index = values.indexOf('');
+      if (index > -1) {
+        setTimeout(() => this.autoFocus = keys[index], 0)
+        return 1
+      }
+      return 0
+    },
+
+    validUserNameType() {
+      const rules = [this.userNameType === 'text', !this.emailRule.test(this.form.userName), this.form.userName !== '']
+      const result = rules.every(i => i === true);
+      if (result) {
+        this.userNameState = true;
+        this.userNameErrMsg = 'email 格式不對';
+        return 1
+      }
+      return 0
+    },
+
+    vaildPassLen() {
+      const pass = this.form.pass;
+      const rules = [pass.length > 0, pass.length < 8];
+
+      const noData = pass.length === 0;
+      const result = rules.every(i => i === true);
+
+      if (noData) return 2;
+
+      if (result) {
+        this.passState = true;
+        this.passErrMsg = '請設定 8 個字元以上的密碼';
+        return 1
+      }
+      return 0
+    },
+
+    vaildCheckPass(vaildPassLen) {
+      if (vaildPassLen > 0) return 1;
+
+      if (!this.checkPass) {
+        this.checkPassState = true;
+        this.checkPassErrMag = '確認密碼';
+        return 1
+      }
+      
+      if (this.form.pass !== this.checkPass) {
+        this.checkPassState = true;
+        this.checkPassErrMag = '這些密碼不相符，請再試一次。'
+        return 1
+      }
+      this.checkPassState = false;
+      return 0
     },
   },
 };
