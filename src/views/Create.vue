@@ -80,14 +80,14 @@
               </div>
               <div
                 ref="pass-icon"
-                class="cursor-point align-self-center"
+                class="cursor-point align-self-start pt-1"
                 @click="actTogglePassIcon"
               >
                 <svg-icon v-show="!showPass" icon-class="eye-show" size="25px" />
                 <svg-icon v-show="showPass" icon-class="eye-close" size="25px" />
               </div>
             </div>
-            <div v-show="!passState && !checkPassState" class="mt-2" style="font-size: .9rem;">
+            <div v-show="!passState && !checkPassState" class="mt-2" style="font-size: .8rem; width: 88%;">
               {{ $t('create_pass_tip', $store.state.lang) }}
             </div>
           </div>
