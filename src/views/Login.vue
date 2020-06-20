@@ -35,7 +35,6 @@
 
 <script>
 import Input from '@/components/Input.vue';
-import Button from '@/components/Button.vue';
 import Popover from '@/components/Popover.vue';
 
 export default {
@@ -43,7 +42,6 @@ export default {
 
   components: {
     Input,
-    Button,
     Popover,
   },
 

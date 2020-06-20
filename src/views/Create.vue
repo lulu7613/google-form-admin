@@ -123,7 +123,6 @@
 <script>
 import FooterBar from '@/components/FooterBar.vue';
 import Input from '@/components/Input.vue';
-import Button from '@/components/Button.vue';
 
 export default {
   name: 'Create',
@@ -131,7 +130,6 @@ export default {
   components: {
     FooterBar,
     Input,
-    Button,
   },
 
   data() {
@@ -211,6 +209,7 @@ export default {
         password: vm.pass,
       }
       console.log('註冊新帳號成功!，使用者資訊: ', form);
+      this.$router.push('/admin');
     },
 
     validForm() {

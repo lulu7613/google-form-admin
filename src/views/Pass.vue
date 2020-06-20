@@ -14,7 +14,7 @@
       <div class="text-left text-primary cursor-point mt-3">
         {{ $t('pass_forgot', $store.state.lang) }}
       </div>
-      <Button type="primary" @click="redirectRootPage">
+      <Button type="primary" @click="redirectAdminPage">
         {{ $t('next', $store.state.lang) }}
       </Button>
     </div>
@@ -23,14 +23,12 @@
 
 <script>
 import Input from '@/components/Input.vue';
-import Button from '@/components/Button.vue';
 
 export default {
   name: 'Pass',
 
   components: {
     Input,
-    Button,
   },
 
   mounted() {
@@ -47,7 +45,7 @@ export default {
   },
 
   methods: {
-    redirectRootPage() {
+    redirectAdminPage() {
       const password = this.pass;
 
       if (!password) {
@@ -55,6 +53,8 @@ export default {
         this.error_msg_i18n = 'pass_no_pass_error';
         return;
       }
+
+      this.$router.push('/admin')
     },
 
     checkStoreUserAccount() {
