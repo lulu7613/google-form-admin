@@ -23,5 +23,27 @@
     "pass_icon_show" : "Show password",
     "pass_icon_close" : "Hide password",
 
-    "create_logo_text": "One account. All of Google working for you."
+    "create_logo_text": "One account. All of Google working for you.",
+    "create_title": "Create your Google Account",
+    
+    "create_first_name": "First name",
+    "create_last_name": "Last name",
+    "create_username": "Username",
+    "create_username_tip": "You can use letters, numbers & periods",
+    "create_username_gmail": "Use my current email address instead",
+    "create_username_other": "Create a new Gmail address instead",
+    "create_pass": "Password",
+    "create_check_pass": "confirm",
+    "create_pass_tip": "Use 8 or more characters with a mix of letters, numbers & symbols",
+
+    "create_first_name_err": "Enter first name",
+    "create_last_name_err": "Enter last name",
+    "create_username_no_data": "Choose a Gmail address",
+    "create_username_err_format": "Email format is wrong",
+    "create_pass_no_data": "Enter a password",
+    "create_pass_err_len": "Use 8 characters or more for your password",
+    "create_check_pass_no_data": "Confirm your password",
+    "create_check_pass_err": "Those passwords didn't match. Try again.",
+
+    "create_login": "Sign in instead"
 }

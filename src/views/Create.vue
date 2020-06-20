@@ -4,7 +4,7 @@
       <div class="card text-center d-flex justify-content-between">
         <div class="text-left" style="width: 55%;">
           <div class="logo">Google</div>
-          <h1>建立您的 Google 帳戶</h1>
+          <h1>{{ $t('create_title', $store.state.lang) }}</h1>
           <div class="mt-4">
             <div class="d-flex justify-content-between">
               <div style="width: 48%">
@@ -12,9 +12,9 @@
                   size="small"
                   type="text"
                   v-model.trim="form.firstName"
-                  placeholder="姓名"
+                  :placeholder="$t('create_first_name', $store.state.lang)"
                   :auto-focus="autoFocus === 'firstName'"
-                  errorMsg="請輸入姓名"
+                  :errorMsg="$t('create_first_name_err', $store.state.lang)"
                   :isError="firstNameState"
                 />
               </div>
@@ -23,9 +23,9 @@
                   size="small"
                   type="text"
                   v-model.trim="form.lastName"
-                  placeholder="名字"
+                  :placeholder="$t('create_last_name', $store.state.lang)"
                   :auto-focus="autoFocus === 'lastName'"
-                  errorMsg="請輸入名字"
+                  :errorMsg="$t('create_last_name_err', $store.state.lang)"
                   :isError="lastNameState"
                 />
               </div>
@@ -35,22 +35,22 @@
                 size="small"
                 :type="userNameType"
                 v-model.trim="form.userName"
-                placeholder="使用者名稱"
+                :placeholder="$t('create_username', $store.state.lang)"
                 :auto-focus="autoFocus === 'userName'"
-                :errorMsg="userNameErrMsg"
+                :errorMsg="$t(userNameErrMsg, $store.state.lang)"
                 :isError="userNameState"
               >
                 <template v-slot:email>{{ emailInputText }}</template>
               </Input>
-              <div v-show="!userNameErrMsg" class="mt-2" style="font-size: .9rem;">
-                您可以使用英文字母、數字和半形句號
+              <div v-show="!userNameState" class="mt-2" style="font-size: .9rem;">
+                {{ $t('create_username_tip', $store.state.lang) }}
               </div>
               <div
                 class="mt-2 text-primary cursor-point"
                 style="font-size: .9rem;"
                 @click="changUserNameType"
               >
-                {{ userNameText }}
+                {{ $t(userNameText, $store.state.lang)}}
               </div>
             </div>
             <div class="mt-4 d-flex justify-content-between">
@@ -59,9 +59,9 @@
                   size="small"
                   :type="passType"
                   v-model.trim="form.pass"
-                  placeholder="密碼"
+                  :placeholder="$t('create_pass', $store.state.lang)"
                   :auto-focus="autoFocus === 'pass'"
-                  :errorMsg="passErrMsg"
+                  :errorMsg="$t(passErrMsg, $store.state.lang)"
                   :isError="passState"
                 />
               </div>
@@ -70,9 +70,9 @@
                   size="small"
                   :type="passType"
                   v-model.trim="checkPass"
-                  placeholder="確認"
+                  :placeholder="$t('create_check_pass', $store.state.lang)"
                   :auto-focus="autoFocus === 'checkPass'"
-                  :errorMsg="checkPassErrMag"
+                  :errorMsg="$t(checkPassErrMag, $store.state.lang)"
                   :isError="checkPassState"
                 />
               </div>
@@ -85,14 +85,13 @@
                 <svg-icon v-show="showPass" icon-class="eye-close" size="25px" />
               </div>
             </div>
-            <div v-show="!passState || !checkPassState" class="mt-2" style="font-size: .9rem;">
-              請混合使用 8 個字元以上的英文字母、數字和符號
+            <div v-show="!passState && !checkPassState" class="mt-2" style="font-size: .9rem;">
+              {{ $t('create_pass_tip', $store.state.lang) }}
             </div>
           </div>
           <div class="mt-5 d-flex justify-content-between">
             <div class="text-left text-primary cursor-point mt-3" @click="redirectLogin">
-              <!-- {{ $t('pass_forgot', $store.state.lang) }} -->
-              請改為登入帳戶
+              {{ $t('create_login', $store.state.lang) }}
             </div>
             <Button type="primary" @click="redirect">
               {{ $t('next', $store.state.lang) }}
@@ -139,7 +138,7 @@ export default {
       passType: 'password',
       showPass: false,
       userNameType: 'email',
-      userNameText: '改為使用我目前的電子郵件地址',
+      userNameText: 'create_username_gmail',
       emailInputText: '@gmail.com',
 
       form: {
@@ -170,10 +169,10 @@ export default {
 
       if (this.userNameType === 'email') {
         this.userNameType = 'text';
-        this.userNameText = '改為建立新的 Gmail 地址';
+        this.userNameText = 'create_username_other';
       } else {
         this.userNameType = 'email';
-        this.userNameText = '改為使用我目前的電子郵件地址';
+        this.userNameText = 'create_username_gmail';
       }
 
       setTimeout(() => this.autoFocus = 'userName', 0)
@@ -220,15 +219,15 @@ export default {
 
       function check(index, msg) {
         const res = values[index] === '' ? true : false;
-        if (res) {
+        if (res && msg) {
           vm[`${keys[index]}ErrMsg`] = msg;
         }
         return res
       }
-      this.firstNameState = check(0, '請輸入姓名');
-      this.lastNameState = check(1, '請輸入名字');
-      this.userNameState = check(2, '請選擇 Gmail 地址');
-      this.passState = check(3, '輸入密碼');
+      this.firstNameState = check(0);
+      this.lastNameState = check(1);
+      this.userNameState = check(2, 'create_username_no_data');
+      this.passState = check(3, 'create_pass_no_data');
 
       const index = values.indexOf('');
       if (index > -1) {
@@ -243,7 +242,7 @@ export default {
       const result = rules.every(i => i === true);
       if (result) {
         this.userNameState = true;
-        this.userNameErrMsg = 'email 格式不對';
+        this.userNameErrMsg = 'create_username_err_format';
         return 1
       }
       return 0
@@ -260,7 +259,7 @@ export default {
 
       if (result) {
         this.passState = true;
-        this.passErrMsg = '請設定 8 個字元以上的密碼';
+        this.passErrMsg = 'create_pass_err_len';
         return 1
       }
       return 0
@@ -271,13 +270,13 @@ export default {
 
       if (!this.checkPass) {
         this.checkPassState = true;
-        this.checkPassErrMag = '確認密碼';
+        this.checkPassErrMag = 'create_check_pass_no_data';
         return 1
       }
       
       if (this.form.pass !== this.checkPass) {
         this.checkPassState = true;
-        this.checkPassErrMag = '這些密碼不相符，請再試一次。'
+        this.checkPassErrMag = 'create_check_pass_err'
         return 1
       }
       this.checkPassState = false;
