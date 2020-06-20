@@ -62,6 +62,7 @@
                   :placeholder="$t('create_pass', $store.state.lang)"
                   :auto-focus="autoFocus === 'pass'"
                   :errorMsg="$t(passErrMsg, $store.state.lang)"
+                  errorMsgFz=".8rem"
                   :isError="passState"
                 />
               </div>
@@ -73,6 +74,7 @@
                   :placeholder="$t('create_check_pass', $store.state.lang)"
                   :auto-focus="autoFocus === 'checkPass'"
                   :errorMsg="$t(checkPassErrMag, $store.state.lang)"
+                  errorMsgFz=".8rem"
                   :isError="checkPassState"
                 />
               </div>

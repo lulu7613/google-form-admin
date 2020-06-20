@@ -62,7 +62,11 @@
         <svg-icon v-show="!showPass" icon-class="eye-show" size="25px" />
         <svg-icon v-show="showPass" icon-class="eye-close" size="25px" />
       </div>
-      <div v-show="isError" class="invalid-feedback text-danger">
+      <div
+        v-show="isError"
+        class="invalid-feedback text-danger"
+        :style="{'font-size': errorMsgFz}"
+      >
         <span class="mr-1"><svg-icon icon-class="warning" /></span>
         <span>{{ errorMsg }}</span>
       </div>
@@ -100,6 +104,10 @@ export default {
     errorMsg: {
       type: String,
       default: '',
+    },
+    errorMsgFz: {
+      type: String,
+      default: '.9rem',
     },
     isError: {
       type: Boolean,
@@ -247,7 +255,6 @@ export default {
 
     .invalid-feedback {
       display: flex;
-      font-size: .9rem;
       text-align: left;
       margin-top: 5px;
     }
