@@ -11,21 +11,22 @@
                 <Input
                   size="small"
                   type="text"
-                  v-model="form.first_name"
+                  v-model.trim="form.first_name"
                   placeholder="姓名"
                   :auto-focus="autoFocus === 'first_name'"
                   errorMsg="請輸入姓名"
-                  :isError="form.first_name === null"
+                  :isError="firstNameState"
                 />
               </div>
               <div style="width: 48%">
                 <Input
                   size="small"
                   type="text"
-                  v-model="form.last_name"
+                  v-model.trim="form.last_name"
                   placeholder="名字"
                   :auto-focus="autoFocus === 'last_name'"
-                  :isError="form.last_name === null"
+                  errorMsg="請輸入名字"
+                  :isError="lastNameState"
                 />
               </div>
             </div>
@@ -33,15 +34,15 @@
               <Input
                 size="small"
                 :type="userNameType"
-                v-model="form.user_name"
+                v-model.trim="form.user_name"
                 placeholder="使用者名稱"
                 :auto-focus="autoFocus === 'user_name'"
-                errorMsg="請輸入使用者名稱"
-                :isError="form.user_name === null"
+                :errorMsg="userNameErrMsg"
+                :isError="userNameState"
               >
                 <template v-slot:email>{{ emailInputText }}</template>
               </Input>
-              <div v-show="form.user_name !== null" class="mt-2" style="font-size: .9rem;">
+              <div v-show="!userNameErrMsg" class="mt-2" style="font-size: .9rem;">
                 您可以使用英文字母、數字和半形句號
               </div>
               <div
@@ -57,20 +58,22 @@
                 <Input
                   size="small"
                   :type="passType"
-                  v-model="form.pass"
+                  v-model.trim="form.pass"
                   placeholder="密碼"
-                  errorMsg="輸入密碼"
-                  :isError="form.pass === null"
+                  :auto-focus="autoFocus === 'pass'"
+                  :errorMsg="passErrMsg"
+                  :isError="passState"
                 />
               </div>
               <div style="width: 42%">
                 <Input
                   size="small"
                   :type="passType"
-                  v-model="form.check_pass"
+                  v-model.trim="check_pass"
                   placeholder="確認"
-                  errorMsg="確認密碼"
-                  :isError="form.check_pass === null"
+                  :auto-focus="autoFocus === 'check_pass'"
+                  :errorMsg="checkPassErrMag"
+                  :isError="checkPassState"
                 />
               </div>
               <div
@@ -82,7 +85,7 @@
                 <svg-icon v-show="showPass" icon-class="eye-close" size="25px" />
               </div>
             </div>
-            <div v-show="form.pass !== null && form.check_pass !== null" class="mt-2" style="font-size: .9rem;">
+            <div v-show="!passState || !checkPassState" class="mt-2" style="font-size: .9rem;">
               請混合使用 8 個字元以上的英文字母、數字和符號
             </div>
           </div>
@@ -133,18 +136,31 @@ export default {
   data() {
     return {
       autoFocus: 'first_name',
-      form: {
-        first_name: '',
-        last_name: '',
-        user_name: '',
-        pass: '',
-        check_pass: '',
-      },
       passType: 'password',
       showPass: false,
       userNameType: 'email',
       userNameText: '改為使用我目前的電子郵件地址',
       emailInputText: '@gmail.com',
+
+      form: {
+        first_name: '',
+        last_name: '',
+        user_name: '',
+        pass: '',
+      },
+      check_pass: '',
+      emailRule: /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/,
+
+      firstNameState: false,
+      lastNameState: false,
+      userNameState: false,
+      passState: false,
+      checkPassState: false,
+      firstNameErrMsg: '',
+      lastNameErrMsg: '',
+      userNameErrMsg: '',
+      passErrMsg: '',
+      checkPassErrMag: '',
     };
   },
 
@@ -163,16 +179,6 @@ export default {
       setTimeout(() => this.autoFocus = 'user_name', 0)
     },
 
-    redirect() {
-      this.form.first_name = null;
-      this.form.user_name = null;
-      this.form.pass = null;
-    },
-
-    redirectLogin() {
-      this.$router.push('/login')
-    },
-
     actTogglePassIcon() {
       this.showPass = !this.showPass;
 
@@ -181,6 +187,71 @@ export default {
       } else {
         this.passType = 'password';
       }
+    },
+
+    redirectLogin() {
+      this.$router.push('/login')
+    },
+
+    redirect() {
+      let validStepCheck = 0; // 統計驗證有幾個步驟
+      this.checkPassState = false; // init
+  
+      const keys = Object.keys(this.form); // 驗證是否有空值
+      const values = Object.values(this.form);
+      const index = values.indexOf('');
+      if (index > -1) {
+        console.log('檢測空值');
+        this.firstNameState = values[0] === '' ? true : false;
+        this.lastNameState = values[1] === '' ? true : false;
+        this.userNameState = values[2] === '' ? true : false;
+        this.passState = values[3] === '' ? true : false;
+        this.firstNameErrMsg = ' 請輸入姓名';
+        this.lastNameErrMsg = '請輸入名字';
+        this.passErrMsg = '輸入密碼';
+        this.userNameErrMsg = '請選擇 Gmail 地址';
+        this.checkPassErrMag = '確認密碼';
+        this.autoFocus = keys[index];
+        validStepCheck++;
+      }
+
+      if (this.userNameType === 'text' && !this.emailRule.test(this.form.user_name) && this.form.user_name) { // 檢測 user_name 的 email 格式
+        console.log('檢測 user_name 的 email 格式');
+        this.userNameState = true;
+        this.userNameErrMsg = 'email 格式不對';
+        validStepCheck++;
+      }
+      
+      if (this.form.pass.length > 0 && this.form.pass.length < 8) { // 驗證 pass 長度
+        console.log('驗證 pass 長度');
+        this.isError = true;
+        this.passState = true;
+        this.passErrMsg = '請設定 8 個字元以上的密碼';
+        validStepCheck++;
+
+      } else if (this.form.pass && !this.check_pass) { // 驗證 check-pass
+        console.log('驗證 check-pass');
+        this.checkPassState = true;
+        validStepCheck++;
+
+      } else if (this.form.pass !== this.check_pass) { // 驗證 check-pass 與 pass
+        console.log('驗證 check-pass 與 pass');
+        this.checkPassState = true;
+        this.checkPassErrMag = '這些密碼不相符，請再試一次。'
+        validStepCheck++;
+      }
+
+      console.log(validStepCheck);
+      if (validStepCheck > 0) return;
+      
+      const vm = this.form;
+      const form = {
+        first_name: vm.first_name,
+        last_name: vm.last_name,
+        user_name: this.userNameType === 'text' ? vm.user_name : vm.user_name + this.emailInputText,
+        password: vm.pass,
+      }
+      console.log('註冊新帳號成功!，使用者資訊: ', form);
     },
   },
 };
