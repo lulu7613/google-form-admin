@@ -3,6 +3,7 @@ import i18n from '@/lang/lang';
 import './assets/icon/index';
 import axios from '@/assets/axios.js';
 import VueAxios from 'vue-axios';
+import _ from 'lodash';
 
 // components
 import Button from '@/components/Button.vue'
