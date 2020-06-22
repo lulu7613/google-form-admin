@@ -1,21 +1,31 @@
 import Table from '@/views/Admin/components/table.vue';
-
 export default {
-  name: 'Mode1',
+  props: {
+    apiData: {
+      type: Array,
+      default: () => [],
+    }
+  },
 
   components: {
     Table,
   },
 
+  mounted() {
+    if (this.apiData) {
+      this.data = _.cloneDeep(this.apiData);
+    }
+  },
+
   data() {
     return {
-      isactApi: false,
+      data: [],
     }
   },
 
   methods: {
     actApiUpdate() {
-      this.isactApi = !this.isactApi;
+      // this.isactApi = !this.isactApi;
     },
   }
 }

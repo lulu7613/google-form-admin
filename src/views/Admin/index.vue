@@ -4,7 +4,7 @@
       <button class="mr-2" @click="changeType">切版版型</button>
       {{ type }}
     </div>
-    <Mode1 :is="type" />
+    <Mode1 :is="type" :apiData="apiData" />
   </div>
 </template>
 
@@ -20,9 +20,14 @@ export default {
     Mode2,
   },
 
+  mounted() {
+    this.getUserList();
+  },
+
   data() {
     return {
       type: 'mode1',
+      apiData: [],
     }
   },
 
@@ -30,6 +35,12 @@ export default {
     changeType() {
       const type = this.type;
       this.type = type ==='mode1' ? 'mode2' : 'mode1';
+    },
+
+    getUserList(url = '/') {
+      this.axios.get(url).then((res) => {
+        this.apiData = res.data;
+      });
     },
   }
 }
