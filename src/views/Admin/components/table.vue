@@ -60,8 +60,7 @@ export default {
         username: this.form.username,
         admin: this.form.admin,
       }
-      this.$store.commit('CHANGE_USERNAME', data);
-      this.$emit('change');
+      this.$store.dispatch('update_user_list', data);
       this.isEdit = '';
     }
   }

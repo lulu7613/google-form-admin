@@ -19,16 +19,6 @@ export default new Vuex.Store({
     GET_DATA(state, data) {
       state.apiData = data;
     },
-    CHANGE_USERNAME(state, data) {
-      const apiData = state.apiData
-      apiData.forEach((i, k) => {
-        if (i.id === data.id) {
-          state.apiData[k].username = data.username;
-          state.apiData[k].admin = data.admin;
-        }
-      });
-      state.apiData = apiData;
-    },
   },
   actions: {
     setLang(context, payload) {
@@ -41,9 +31,8 @@ export default new Vuex.Store({
     },
 
     async update_user_list(context, data) {
-      await Vue.axios.post('/', data)
-      const res = await Vue.axios.patch('/', data);
-      context.commit('GET_DATA', res.data);
+      await Vue.axios.put(`/${data.id}`, data);
+      context.dispatch('get_user_list');
     }
   },
   modules: {
