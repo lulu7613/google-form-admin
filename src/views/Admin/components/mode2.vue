@@ -2,10 +2,10 @@
   <div>
     <div class="mb-3">
       <select v-model="keyword">
-        <option v-for="item in apiData" :key="item.id" :value="item.username">{{ item.username }}</option>
+        <option v-for="item in apiData" :key="item.id" :value="item.id">{{ item.username }}</option>
       </select>
     </div>
-    <Table :data="filter" @change="checkKeyword" />
+    <Table :data="filter" />
     <!-- <div class="mt-4">
       <button @click="actApiUpdate">更改使用者資料</button>
     </div> -->
@@ -25,14 +25,14 @@ export default {
 
   mounted() {
     if (this.apiData) {
-      this.keyword = this.apiData[0].username;
+      this.keyword = this.apiData[0].id;
     }
   },
 
   computed: {
     filter() {
       const keyword = this.keyword;
-      return this.apiData.filter(i => i.username === keyword);
+      return this.apiData.filter(i => i.id === keyword);
     }
   },
 
@@ -40,12 +40,6 @@ export default {
     return {
       keyword: '',
     }
-  },
-
-  methods: {
-    checkKeyword() {
-      this.keyword = this.apiData[0].username;
-    },
   },
 }
 </script>
