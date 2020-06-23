@@ -5,10 +5,10 @@
         <option v-for="item in apiData" :key="item.id" :value="item.username">{{ item.username }}</option>
       </select>
     </div>
-    <Table :data="filter" />
-    <div class="mt-4">
+    <Table :data="filter" @change="checkKeyword" />
+    <!-- <div class="mt-4">
       <button @click="actApiUpdate">更改使用者資料</button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -42,11 +42,10 @@ export default {
     }
   },
 
-  watch: {
-    apiData() {
-      console.log(11111)
+  methods: {
+    checkKeyword() {
       this.keyword = this.apiData[0].username;
-    }
+    },
   },
 }
 </script>

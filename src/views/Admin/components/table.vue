@@ -61,6 +61,7 @@ export default {
         admin: this.form.admin,
       }
       this.$store.commit('CHANGE_USERNAME', data);
+      this.$emit('change');
       this.isEdit = '';
     }
   }

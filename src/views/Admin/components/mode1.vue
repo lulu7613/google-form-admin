@@ -26,7 +26,7 @@ export default {
       get: function() {
         const keyword = this.keyword;
         if (keyword) {
-          return this.apiData.filter(i =>i.username.match(keyword) || i.id.match(keyword))
+          return this.apiData.filter(i =>i.username.match(keyword) || i.id.match(keyword) || i.admin.match(keyword))
         }
         return this.apiData;
       },

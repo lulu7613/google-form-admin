@@ -18,6 +18,7 @@ export default {
 
   methods: {
     actApiUpdate() {
+      this.$store.dispatch('get_user_list');
     },
   }
 }
