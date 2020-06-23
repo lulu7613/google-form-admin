@@ -2,10 +2,10 @@
   <div>
     <div class="mb-3">
       <select v-model="keyword">
-        <option v-for="item in data" :key="item.id" :value="item.username">{{ item.username }}</option>
+        <option v-for="item in apiData" :key="item.id" :value="item.username">{{ item.username }}</option>
       </select>
     </div>
-    <Table :data.sync="filter" />
+    <Table :data="filter" />
     <div class="mt-4">
       <button @click="actApiUpdate">更改使用者資料</button>
     </div>
@@ -19,16 +19,20 @@ export default {
   name: 'Mode2',
   mixins: [mixin],
 
+  components: {
+    Table: () => import('@/views/Admin/components/table.vue'),
+  },
+
   mounted() {
-    if (this.data) {
-      this.keyword = this.data[0].username;
+    if (this.apiData) {
+      this.keyword = this.apiData[0].username;
     }
   },
 
   computed: {
     filter() {
       const keyword = this.keyword;
-      return this.data.filter(i => i.username === keyword);
+      return this.apiData.filter(i => i.username === keyword);
     }
   },
 
@@ -36,6 +40,13 @@ export default {
     return {
       keyword: '',
     }
-  }
+  },
+
+  watch: {
+    apiData() {
+      console.log(11111)
+      this.keyword = this.apiData[0].username;
+    }
+  },
 }
 </script>

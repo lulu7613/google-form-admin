@@ -5,15 +5,15 @@
       <th>信箱</th>
       <th>權限</th>
     </tr>
-    <tr v-for="item in data" :key="item.id" @click="change(item)">
+    <tr v-for="item in data" :key="item.id" @click="actEdit(item)" v-clickoutside="actCloseEdit">
       <td>
         <span v-show="isEdit !== item.id">{{ item.username }}</span>
         <input v-show="isEdit === item.id" type="text" v-model="form.username" @change="update(item.id)">
       </td>
       <td>{{ item.id }}</td>
       <td>
-        <span v-if="item.admin === 0">user</span>
-        <span v-if="item.admin === 1">root</span>
+        <span v-show="isEdit !== item.id">{{ item.admin }}</span>
+        <input v-show="isEdit === item.id" type="text" v-model="form.admin" @change="update(item.id)">
       </td>
     </tr>
   </table>
@@ -31,15 +31,6 @@ export default {
   },
 
   computed: {
-    list: {
-      get: function() {
-        const data = _.cloneDeep(this.data);
-        return data;
-      },
-      set: function(value) {
-        this.list = value;
-      }
-    }
   },
 
   data() {
@@ -47,26 +38,29 @@ export default {
       isEdit: '',
       form: {
         username: '',
-        admin: 0,
+        admin: '',
       }
     }
   },
 
   methods: {
-    change(item) {
+    actEdit(item) {
       this.isEdit = item.id;
       this.form.username = item.username;
       this.form.admin = item.admin;
     },
 
+    actCloseEdit() {
+      this.isEdit = '';
+    },
+
     update(id) {
-      const data = _.cloneDeep(this.data)
-      data.filter((i, k) => {
-        if (i.id === id) {
-          return data[k].username = this.form.username;
-        }
-      })
-      this.$emit('update:data', data);
+      const data = {
+        id,
+        username: this.form.username,
+        admin: this.form.admin,
+      }
+      this.$store.commit('CHANGE_USERNAME', data);
       this.isEdit = '';
     }
   }

@@ -1,4 +1,4 @@
-import Table from '@/views/Admin/components/table.vue';
+// import Table from '@/views/Admin/components/table.vue';
 export default {
   props: {
     apiData: {
@@ -7,25 +7,17 @@ export default {
     }
   },
 
-  components: {
-    Table,
-  },
-
-  mounted() {
-    if (this.apiData) {
-      this.data = _.cloneDeep(this.apiData);
-    }
-  },
+  // components: {
+  //   Table: () => import('@/views/Admin/components/table.vue'),
+  // },
 
   data() {
     return {
-      data: [],
     }
   },
 
   methods: {
     actApiUpdate() {
-      // this.isactApi = !this.isactApi;
     },
   }
 }

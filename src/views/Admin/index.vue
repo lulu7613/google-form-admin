@@ -4,30 +4,33 @@
       <button class="mr-2" @click="changeType">切版版型</button>
       {{ type }}
     </div>
-    <Mode1 :is="type" :apiData="apiData" />
+    <component :is="type" :apiData="apiData" />
   </div>
 </template>
 
 <script>
-import Mode1 from './components/mode1.vue';
-import Mode2 from './components/mode2.vue';
 
 export default {
   name: 'Admin',
 
   components: {
-    Mode1,
-    Mode2,
+    Mode1: () => import('./components/mode1.vue'),
+    Mode2: () => import('./components/mode2.vue'),
   },
 
   mounted() {
     this.getUserList();
   },
 
+  computed: {
+    apiData() {
+      return this.$store.state.apiData;
+    }
+  },
+
   data() {
     return {
       type: 'mode1',
-      apiData: [],
     }
   },
 
@@ -37,10 +40,8 @@ export default {
       this.type = type ==='mode1' ? 'mode2' : 'mode1';
     },
 
-    getUserList(url = '/') {
-      this.axios.get(url).then((res) => {
-        this.apiData = res.data;
-      });
+    getUserList() {
+      this.$store.dispatch('get_user_list');
     },
   }
 }

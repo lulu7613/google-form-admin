@@ -1,10 +1,34 @@
 {
   "data": [
-    { "id": "qwer@gamil.com", "username": "使用者01", "admin": 0 },
-    { "id": "asdf@gamil.com", "username": "使用者02", "admin": 0 },
-    { "id": "erjdie_fdfe@gamil.com", "username": "使用者03", "admin": 0 },
-    { "id": "jfkdlgr@gamil.com", "username": "使用者04", "admin": 0 },
-    { "id": "iurfgggg@gamil.com", "username": "使用者05", "admin": 1 },
-    { "id": "werdf@hotmail.com.tw", "username": "使用者06", "admin": 1 }
+    {
+      "id": "qwer@gamil.com",
+      "username": "使用者01",
+      "admin": "user"
+    },
+    {
+      "id": "asdf@gamil.com",
+      "username": "使用者02",
+      "admin": "user"
+    },
+    {
+      "id": "erjdie_fdfe@gamil.com",
+      "username": "使用者03",
+      "admin": "user"
+    },
+    {
+      "id": "jfkdlgr@gamil.com",
+      "username": "使用者04",
+      "admin": "user"
+    },
+    {
+      "id": "iurfgggg@gamil.com",
+      "username": "使用者05",
+      "admin": "root"
+    },
+    {
+      "id": "werdf@hotmail.com.tw",
+      "username": "使用者06",
+      "admin": "root"
+    }
   ]
 }
